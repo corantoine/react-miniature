@@ -2,7 +2,7 @@ name: LIGHTHOUSE ACCES CI
 on:
   push:
     branches:
-      - main
+      - master
 jobs:
   lighthouseci:
     runs-on: ubuntu-latest
