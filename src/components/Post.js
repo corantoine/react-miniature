@@ -1,40 +1,54 @@
 import "./Post.css";
 
-function Post({ id, username, avatar, attachments = [], getPost, getOwner, children }) {
+function Post({
+  id,
+  username,
+  avatar,
+  attachments = [],
+  getPost,
+  getOwner,
+  children,
+}) {
   const handleComment = () => {
     // TODO: Implement comment functionality
-    console.log('Comment clicked on post:', id);
+    console.log("Comment clicked on post:", id);
   };
 
   const handleLike = () => {
     // TODO: Implement like functionality
-    console.log('Like clicked on post:', id);
+    console.log("Like clicked on post:", id);
   };
 
   const handleShare = () => {
     // TODO: Implement share functionality
-    console.log('Share clicked on post:', id);
+    console.log("Share clicked on post:", id);
   };
 
   return (
     <div className="post-card">
       <div className="post-header">
-        <img className="post-avatar" src={avatar} alt={`${username} avatar`} />
+        <img
+          className="post-avatar"
+          src={avatar}
+          alt={`${username}'s avatar`}
+        />
         <span className="post-username">{username}</span>
       </div>
       <div className="post-body">
         <p>{children}</p>
         {attachments.map((attachment, index) => {
           switch (attachment.type) {
-            case 'post': {
-              const referenced = typeof attachment.post === 'object' 
-              ? attachment.post 
-              : getPost(attachment.post);
+            case "post": {
+              const referenced =
+                typeof attachment.post === "object"
+                  ? attachment.post
+                  : getPost(attachment.post);
 
-              const owner = typeof referenced.owner === 'object' 
-                ? referenced.owner 
-                : getOwner(referenced.owner);
-              
+              const owner =
+                typeof referenced.owner === "object"
+                  ? referenced.owner
+                  : getOwner(referenced.owner);
+
               return (
                 <Post
                   key={`post-${id}-attachment-${index}`}
@@ -49,12 +63,29 @@ function Post({ id, username, avatar, attachments = [], getPost, getOwner, child
                 </Post>
               );
             }
-            case 'image':
-              return (<img key={`post-${id}-attachment-${index}`} src={attachment.image} />);
-            case 'link':
-              return (<a key={`post-${id}-attachment-${index}`} href={attachment.link}>{attachment.link}</a>);
+            case "image":
+              return (
+                <img
+                  key={`post-${id}-attachment-${index}`}
+                  src={attachment.image}
+                  alt="texte alternatif"
+                />
+              );
+            case "link":
+              return (
+                <a
+                  key={`post-${id}-attachment-${index}`}
+                  href={attachment.link}
+                >
+                  {attachment.link}
+                </a>
+              );
             default:
-              return (<p key={`post-${id}-attachment-${index}`} >Attachment type not yet implemented</p>);
+              return (
+                <p key={`post-${id}-attachment-${index}`}>
+                  Attachment type not yet implemented
+                </p>
+              );
           }
         })}
       </div>
